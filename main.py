@@ -22,7 +22,7 @@ screen = pygame.display.set_mode( size )
 background = pygame.image.load("fondo del juego.jpg")
 
 #background music
-mixer.music.load("disparo.wav")
+mixer.music.load("musica_de_fondo.wav")
 
 #title
 pygame.display.set_caption("Space Invaders")
@@ -76,13 +76,13 @@ text_x = 10
 text_y = 10
 
 #game over font
-go_font = pygame.font.Font("Stocky.ttf")
+go_font = pygame.font.Font("Stocky.ttf", 64)
 go_x = 200
 go_y = 250
 
 #game over funtion
 def game_over(x, y):
-    go_text = go_font.render("Game Over", True, (0,0,0))
+    go_text = go_font.render("Game Over", True, (255,255,255))
     screen.blit(go_text, (x, y))
 
 #score text funtion
@@ -188,28 +188,35 @@ while running:
     for item in range (enemies):
 
         #game over zone
-        if enemy_y[item] > 476:
+        if enemy_y[item] > 440:
             for j in range (enemies):
-                enemy_y [ j ] = 4000
+                enemy_y [ j ] = 10000
 
             #call game over funtion
-            game_over(go_x, go_y)
+            game_over( go_x, go_y )
 
             break
 
-
+    
 
         enemy_x[item] += enemy_x_change[item]
         
         if enemy_x[item] <= 0:
             enemy_x[item] <= 1
-            enemy_x_change[item] = 0.7
+            enemy_x_change[item] = 0.8
             enemy_y[item] += enemy_y_change[item]
         
         elif enemy_x[item] >= 765:
             enemy_x[item] >= 764
-            enemy_x_change[item] = -0.7
+            enemy_x_change[item] = -0.8
             enemy_y[item] += enemy_y_change[item]
+
+
+
+     
+
+
+
         
         #Call coalition funtion
         coalition = is_coalition(enemy_x[item], enemy_y[item], bullet_x, bullet_y)
@@ -236,8 +243,6 @@ while running:
     if bullet_state == ("fire"):
         fire(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
-
-
     
 
 
